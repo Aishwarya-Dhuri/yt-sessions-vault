@@ -1,0 +1,62 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7a2fe2; /* Hot pink */
+  color: white;
+  padding: 10px 20px;
+  height: 60px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 18px;
+  .brandlogo{
+    font-size: 18px;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.toggle-btn:hover {
+  color: #ffb3d9;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-right: 15px;
+  font-weight: bold;
+    font-size: 16px;
+}
+
+.logoff-btn {
+  background-color: #56219f;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logoff-btn:hover {
+  background-color: darken($color: #56219f, $amount: 40);
+}

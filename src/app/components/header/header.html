@@ -1,0 +1,10 @@
+<header class="header">
+  <div class="left">
+    <button class="toggle-btn" (click)="toggleSidebar.emit()">☰</button>
+    <h1 class="brandlogo">Youtube Sessions Vault</h1>
+  </div>
+  <div class="right">
+    <span class="username">{{ loggedInUserData?.fullName }}</span>
+    <button class="logoff-btn" (click)="logoff()">Logout</button>
+  </div>
+</header>

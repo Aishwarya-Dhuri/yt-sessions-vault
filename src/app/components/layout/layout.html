@@ -1,0 +1,18 @@
+<app-header (toggleSidebar)="toggleSidebar()" (logoff)="onLogoff()"></app-header>
+<div class="layout-container">
+  <aside class="sidebar" [class.open]="sidebarOpen()">
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/home/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="/home/batch" routerLinkActive="active">Batch</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="main-content" [class.sidebar-open]="sidebarOpen()">
+    <router-outlet></router-outlet>
+  </main>
+</div>
