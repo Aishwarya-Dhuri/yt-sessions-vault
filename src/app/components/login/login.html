@@ -18,7 +18,7 @@
         <div class="input-group-custom  password-group">
           <span class="icon">🔒</span>
            <input
-            [type]="showPassword ? 'text' : 'password'"
+            [type]="showPassword() ? 'text' : 'password'"
             class="form-control"
             [(ngModel)]="loginObj.password"
             name="password"
@@ -27,7 +27,7 @@
           />
          
            <span class="toggle" (click)="togglePassword()" id="togglePassword">
-              {{ showPassword ? '🙈' : '👁️' }}
+              {{ showPassword() ? '🙈' : '👁️' }}
             </span>
         </div>
 

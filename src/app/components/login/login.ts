@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginModel } from '../../core/models/login.model';
@@ -16,7 +16,7 @@ export class Login {
     email: '',
     password: ''
   };
-    showPassword = false;
+    showPassword = signal(false);
 
   router = inject(Router);
   http = inject(HttpClient);
@@ -38,7 +38,7 @@ export class Login {
   }
 
   togglePassword() {
-    this.showPassword = !this.showPassword;
+    this.showPassword.update(value => !value);
   }
 }
 

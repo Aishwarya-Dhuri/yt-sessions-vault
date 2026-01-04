@@ -1,1 +1,124 @@
-<p>batch works!</p>
+<div class="container mt-4 mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="master-heading">Batch Management</h2>
+    <button class="btn btn-primary" (click)="openAddBatch()">Add Batch</button>
+  </div>
+
+ 
+    <table class="table table-bordered table-responsive table-hover mainTable">
+      <thead class="table-headbg">
+        <tr>
+          <th class="w-5 text-center">ID</th>
+          <th class="w-20">Batch Name</th>
+          <th class="w-25">Description</th>
+          <th class="w-15 text-center">Start Date</th>
+          <th class="w-15 text-center">End Date</th>
+          <th class="w-10 text-center">Status</th>
+          <th class="w-10 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for( batch of batchList(); track $index){
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td class="text-start">{{ batch.batchName }}</td>
+          <td class="text-start">{{ batch.description }}</td>
+          <td>{{ batch.startDate | date : 'dd-MM-yy' }}</td>
+          <td>{{ batch.endDate | date : 'dd-MM-yy' }}</td>
+          @if(batch.isActive){
+          <td><span class="isActive">Active</span></td>
+          }@else {
+          <td><span class="inactive">InActive</span></td>
+          }
+
+          <!-- <td><span class="badge bg-danger">No</span></td> -->
+
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-warning me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#batchModal"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+
+        }
+
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+
+
+<app-modalcomponent>
+  <div modal-title>Add Batch</div>
+  <div modal-body>
+    <form [formGroup]="batchForm">
+      <div class="row">
+        <div class="col-md- mb-3">
+          <label for="batchName" class="form-label">Batch Name</label>
+          <input
+            type="text"
+            formControlName="batchName"
+            class="form-control"
+            id="batchName"
+            placeholder="Enter batch name"
+          />
+        </div>
+        <div class="col-md-12 b-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            formControlName="description"
+            id="description"
+            rows="3"
+            placeholder="Enter description"
+          ></textarea>
+        </div>
+        <div class="col-md-6 mb-3 mt-3">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input
+            type="datetime-local"
+            formControlName="startDate"
+            class="form-control"
+            id="startDate"
+          />
+        </div>
+        <div class="col-md-6 mb-3 mt-3">
+          <label for="endDate" class="form-label">End Date</label>
+          <input
+            type="datetime-local"
+            formControlName="endDate"
+            class="form-control"
+            id="endDate"
+          />
+        </div>
+        <div class="mb-3 form-check m-3">
+          <input
+            type="checkbox"
+            formControlName="isActive"
+            class="form-check-input"
+            id="isActive"
+          />
+          <label class="form-check-label" for="isActive">Is Active</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div modal-footer>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="batchForm.invalid"
+      (click)="onSaveBatch()"
+    >
+      Save Batch
+    </button>
+  </div>
+</app-modalcomponent>
+<!-- Modal -->
