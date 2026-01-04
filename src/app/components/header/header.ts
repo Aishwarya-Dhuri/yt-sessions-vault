@@ -9,6 +9,7 @@ import { GlobalConstants } from '../../core/constants/global.constants';
   styleUrl: './header.scss',
 })
 export class Header {
+
   toggleSidebar = output<void>();
     private router = inject(Router); // Inject Router as a service
 

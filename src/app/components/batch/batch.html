@@ -33,13 +33,13 @@
 
           <td class="text-center">
             <button
-              class="btn btn-sm btn-warning me-2"
+              class="btn btn-sm btn-warning me-2 "
               data-bs-toggle="modal" (click)="onEditBatch(batch)"
               data-bs-target="#batchModal"
             >
               <i class="fas fa-edit"></i>
             </button>
-            <button class="btn btn-sm btn-danger" (click)="onDeleteBatch(batch.batchId)"><i class="fa-solid fa-trash"></i></button>
+            <button class="btn btn-sm btn-danger" (click)="openDeleteConfirm(batch.batchId)"><i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
 
@@ -111,7 +111,7 @@
     <button type="button" class="btn btn-secondary" (click)="onModalClose()" data-bs-dismiss="modal">Close</button>
     <button
       type="button"
-      class="btn btn-primary"
+      class="btn btn-primary ms-md-3 d-inline-block"
       [disabled]="batchForm.invalid"
       (click)="onSaveBatch()"
     >

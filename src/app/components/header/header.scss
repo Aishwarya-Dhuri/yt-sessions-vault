@@ -1,9 +1,10 @@
+@use '../../scss/variables' as *;
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #7a2fe2; /* Hot pink */
-  color: white;
+  background-color: $primary-base-color; /* Hot pink */
+  color: $white;
   padding: 10px 20px;
   height: 60px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -23,7 +24,7 @@
 .toggle-btn {
   background: none;
   border: none;
-  color: white;
+  color: $white;
   font-size: 24px;
   cursor: pointer;
   margin-right: 20px;
@@ -51,14 +52,25 @@ h1 {
 
 .logoff-btn {
   background-color: #56219f;
-  color: white;
+  color: $white;
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  border:1px solid $white;
 }
 
 .logoff-btn:hover {
   background-color: darken($color: #56219f, $amount: 40);
+}
+
+.user-icon {
+    width: 30px;
+margin-right: 10px;
+} 
+.logout-icon{
+  width: 30px;
+      width: 20px;
+
 }

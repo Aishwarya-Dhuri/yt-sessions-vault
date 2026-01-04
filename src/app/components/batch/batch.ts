@@ -8,6 +8,8 @@ import { ModalService } from '../../shared/services/modal-service';
 import { Modal } from 'bootstrap';
 import { Modalcomponent } from '../../shared/components/modalcomponent/modalcomponent';
 import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-batch',
@@ -31,7 +33,7 @@ export class Batch implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private modalState: ModalService) {
+  constructor(private fb: FormBuilder, private modalState: ModalService, private toastr: ToastrService) {
     this.batchForm = this.fb.group({
       batchId: [0],
       batchName: ['', Validators.required],
@@ -78,8 +80,8 @@ export class Batch implements OnInit {
         .subscribe({
           next: (res: IAPIResponse) => {
 
-            this.updateBatchInList(formValue);
-            alert('Updated successfully');
+           this.updateBatchInList(res.data ?? formValue);
+            this.toastr.success('Batch Updated successfully');
             this.afterSave();
 
           },
@@ -93,10 +95,11 @@ export class Batch implements OnInit {
       this.batchService.createNewBatch(formValue).subscribe(
         {
           next: (res: IAPIResponse) => {
-            alert('Created successfully');
+
+            this.toastr.success('Batch Created successfully');
             //this.editMode.set(false);
             this.afterSave();
-            this.updateBatchInList(formValue);
+            this.batchList.update(list => [...list, res.data]);
 
           },
           error: (err) => {
@@ -164,24 +167,41 @@ export class Batch implements OnInit {
     return date ? date.substring(0, 16) : '';
   }
 
-  onDeleteBatch(batchId: number) {
-  const confirmDelete = confirm('Are you sure you want to delete this batch?');
-
-  if (!confirmDelete) return;
-
-  this.batchService.deleteBatch(batchId).subscribe({
-    next: () => {
-      alert('Batch deleted successfully');
-
-      // 🔥 Update signal list (NO reload)
-      this.batchList.update(list =>
-        list.filter(batch => batch.batchId !== batchId)
-      );
-    },
-    error: err => {
-      alert('Error: ' + err.error.message);
-    }
-  });
+  openDeleteConfirm(batchId: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This batch will be permanently deleted',
+      icon: 'warning',
+      width: '400px', 
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, delete it'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.deleteBatch(batchId);
+      }
+    });
 }
+
+  deleteBatch(batchId: number) {
+    //const confirmDelete = confirm('Are you sure you want to delete this batch?');
+
+
+   // if (!confirmDelete) return;
+
+    this.batchService.deleteBatch(batchId).subscribe({
+      next: () => {
+        this.toastr.success('Batch deleted successfully');
+        // 🔥 Update signal list (NO reload)
+        this.batchList.update(list =>
+          list.filter(batch => batch.batchId !== batchId)
+        );
+      },
+      error: err => {
+        alert('Error: ' + err.error.message);
+      }
+    });
+  }
 
 }

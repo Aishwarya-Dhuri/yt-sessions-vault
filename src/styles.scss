@@ -67,3 +67,17 @@ p,
       box-shadow: none;
      }
 }
+.btn-primary{
+  background-color: $primary-base-color;
+     font-size: 14px;
+    font-weight: 400;
+    font-family: 'Google Sans', sans-serif;
+  &:hover{
+    background-color: darken($color: $primary-base-color, $amount: 20);
+  }
+}
+.btn-secondary{
+   font-size: 14px;
+    font-weight: 400;
+        font-family: 'Google Sans', sans-serif;
+}
