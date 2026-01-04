@@ -1,6 +1,6 @@
 .layout-container {
   display: flex;
-  height: calc(100vh - 60px); 
+  
 }
 
 .sidebar {
@@ -50,7 +50,8 @@
   flex: 1;
   padding: 20px;
   transition: margin-left 0.3s ease;
-  margin-left: 0;
+
+  margin: 40px 0 20px 0;
 }
 
 .main-content.sidebar-open {

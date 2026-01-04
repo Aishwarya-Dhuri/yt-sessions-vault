@@ -4,5 +4,6 @@ export const GlobalConstants = {
 
 export const ApiMethods = {
     NEW_BATCH : 'Batches',
+    UPDATE_BATCH : 'Batches/',
     ENROLMENT : ''
 }

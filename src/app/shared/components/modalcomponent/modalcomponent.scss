@@ -1,0 +1,14 @@
+@use '../../../scss/variables' as *;
+.modal-header{
+    background-color: $primary-base-color;
+        padding: 8px 15px;
+        .modal-title{
+            color: $white;
+            font-size: 16px;
+
+        }
+        .modal-body{
+              font-size: 16px;
+               font-family: 'Google Sans', sans-serif;
+        }
+}

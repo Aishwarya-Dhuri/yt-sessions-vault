@@ -47,3 +47,23 @@ p,
   font-size: 25px;
     margin: 0;
 }
+.form-label, .form-check-label{
+  font-size: 15px;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+  color: $black;
+}
+.form-control{
+   font-size: 15px;
+    font-weight: 400;
+     font-family: 'Google Sans', sans-serif;
+     border:none;
+       border-bottom: 1px solid $border-color;
+       border-radius: 0;
+       padding: 0 0 0 0;
+     &:focus{
+      outline: none;
+      border-bottom: 1px solid $primary-base-color;
+      box-shadow: none;
+     }
+}

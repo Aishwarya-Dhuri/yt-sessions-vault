@@ -28,20 +28,18 @@
           @if(batch.isActive){
           <td><span class="isActive">Active</span></td>
           }@else {
-          <td><span class="inactive">InActive</span></td>
+          <td><span class="inactive">Inactive</span></td>
           }
-
-          <!-- <td><span class="badge bg-danger">No</span></td> -->
 
           <td class="text-center">
             <button
               class="btn btn-sm btn-warning me-2"
-              data-bs-toggle="modal"
+              data-bs-toggle="modal" (click)="onEditBatch(batch)"
               data-bs-target="#batchModal"
             >
               <i class="fas fa-edit"></i>
             </button>
-            <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+            <button class="btn btn-sm btn-danger" (click)="onDeleteBatch(batch.batchId)"><i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
 
@@ -54,7 +52,7 @@
 
 
 <app-modalcomponent>
-  <div modal-title>Add Batch</div>
+  <div modal-title>{{ editMode() ? 'Edit Batch' : 'Create Batch' }}</div>
   <div modal-body>
     <form [formGroup]="batchForm">
       <div class="row">
@@ -81,7 +79,7 @@
         <div class="col-md-6 mb-3 mt-3">
           <label for="startDate" class="form-label">Start Date</label>
           <input
-            type="datetime-local"
+            type="date"
             formControlName="startDate"
             class="form-control"
             id="startDate"
@@ -90,7 +88,7 @@
         <div class="col-md-6 mb-3 mt-3">
           <label for="endDate" class="form-label">End Date</label>
           <input
-            type="datetime-local"
+            type="date"
             formControlName="endDate"
             class="form-control"
             id="endDate"
@@ -110,14 +108,14 @@
   </div>
 
   <div modal-footer>
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-secondary" (click)="onModalClose()" data-bs-dismiss="modal">Close</button>
     <button
       type="button"
       class="btn btn-primary"
       [disabled]="batchForm.invalid"
       (click)="onSaveBatch()"
     >
-      Save Batch
+     {{ editMode() ? 'Update Batch' : 'Save Batch' }}
     </button>
   </div>
 </app-modalcomponent>

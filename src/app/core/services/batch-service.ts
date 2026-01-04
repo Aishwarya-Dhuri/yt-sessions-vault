@@ -19,4 +19,15 @@ export class BatchService {
   getAllBatches():Observable<IAPIResponse>{
     return this.http.get<IAPIResponse>(environment.API_URL+ApiMethods.NEW_BATCH)
   }
+  
+
+  updateBatch(batchId: number, batchObj: BatchModel):Observable<IAPIResponse>{
+    //console.warn(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId);
+    return this.http.put<IAPIResponse>(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId,batchObj)
+    
+  }
+
+   deleteBatch(batchId: number):Observable<IAPIResponse>{
+    return this.http.delete<IAPIResponse>(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId)
+  }
 }
