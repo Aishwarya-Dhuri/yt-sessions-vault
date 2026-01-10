@@ -16,3 +16,8 @@
 .inactive{
     background-color: $inactive-btn-color;
 }
+.role-row{
+    display: flex;
+    align-items: flex-end;   /* 🔥 vertical center */
+    gap: 24px;
+}

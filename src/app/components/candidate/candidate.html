@@ -39,8 +39,9 @@
                 (click)="onEditCandidate(candidate)">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-sm btn-danger" (click)="openDeleteConfirm(candidate.candidateId)"><i
-                  class="fa-solid fa-trash"></i></button>
+              <button class="btn btn-sm btn-danger" (click)="openDeleteConfirm(candidate.candidateId)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </td>
           </tr>
 
@@ -51,9 +52,7 @@
   </div>
 </div>
 
-
 <!--Modal Code -->
-
 
 <app-modalcomponent>
   <div modal-title>{{ editMode() ? 'Edit Candidate' : 'Add Candidate' }}</div>
@@ -65,49 +64,48 @@
           <input type="text" formControlName="fullName" class="form-control" id="candidateName"
             placeholder="Enter Candidate name" />
         </div>
-        <div class="col-md-12  mt-3">
+        <div class="col-md-12 mt-3">
           <label for="Email" class="form-label">Email</label>
           <input type="email" formControlName="email" class="form-control" id="email"
             placeholder="Enter Candidate name" />
         </div>
-        <div class="col-md-12  mt-3">
+        <div class="col-md-12 mt-3">
           <label for="mobileNumber" class="form-label">Mobile Number</label>
           <input type="text" formControlName="mobileNumber" class="form-control" id="mobileNumber"
             placeholder="Enter Mobile Number" />
         </div>
-        <div class="col-md-12  mt-3">
+        <div class="col-md-12 mt-3">
           <label for="password" class="form-label">Password</label>
           <input type="text" formControlName="password" class="form-control" id="password"
             placeholder="Enter Password" />
         </div>
 
-        <div class="col-md-6  mt-3">
-
-          <label for="role" class="form-label">Role</label>
-          <select formControlName="role" class="form-select" id="role">
-            <option value=""></option>
-            <option value="admin">Superadmin</option>
-            <option value="candidate">Candidate</option>
-          </select>
-
-        </div>
-
-        <div class="col-md-6 mb-3  ">
-          <div class="form-check m-3">
-            <input type="checkbox" formControlName="isActive" class="form-check-input " id="isActive" />
-            <label class="form-check-label" for="isActive">Is Active</label>
+        <div class="role-row">
+          <div class="col-md-6 mt-3">
+            <label for="role" class="form-label">Role</label>
+            <select formControlName="role" class="form-select" id="role">
+              <option value="" disabled selected>Please select role</option>
+              <option value="admin">Superadmin</option>
+              <option value="candidate">Candidate</option>
+            </select>
           </div>
 
+          <div class="col-md-6 ">
+            <div class="form-check align-self-end mb-2">
+              <input type="checkbox" formControlName="isActive" class="form-check-input" id="isActive" />
+              <label class="form-check-label" for="isActive">Is Active</label>
+            </div>
+          </div>
         </div>
+
         <div class="col-md-6 mt-3">
           <label for="createdAtDate" class="form-label">CreatedAt Date</label>
           <input type="date" formControlName="createdAtDate" class="form-control" id="createdAtDate" />
         </div>
-        <div class="col-md-6  mt-3">
+        <div class="col-md-6 mt-3">
           <label for="updatedAtDate" class="form-label">Updated Date</label>
           <input type="date" formControlName="updatedAtDate" class="form-control" id="updatedAt" />
         </div>
-
       </div>
     </form>
   </div>

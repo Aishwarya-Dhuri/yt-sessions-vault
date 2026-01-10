@@ -7,10 +7,15 @@ export const ApiMethods = {
         NEW_BATCH : 'Batches',
         UPDATE_BATCH : 'Batches/',
     },
-      CANDIDATES:{
+    CANDIDATES:{
         GET_CANDIDATES: 'Candidates',
         CREATE_CANDIDATE:'Candidates/'
-      }
+    },
+     BATCH_ENROLLMENTS:{
+        GET_ALL_ENROLLMENTS : 'BatchEnrollments/GetAllEnrollment',
+        CREATE_BATCH_ENROLLMENTS:'BatchEnrollments/'
+     
+    },
   
     
 }

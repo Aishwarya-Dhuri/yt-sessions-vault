@@ -1,0 +1,116 @@
+<div class="container mt-4 mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="master-heading">Batch Enrollments</h2>
+    <button class="btn btn-primary" (click)="openAddEnorllmentModal()">Add Enrollment</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered table-responsive table-hover mainTable">
+        <thead class="table-headbg">
+          <tr>
+            <th class="w-5 text-center">Sr No</th>
+            <th class="w-20">Batch Name</th>
+            <th class="w-25">Candidate Name</th>
+            <th class="w-15 text-center">Enrollment Date</th>
+            <th class="w-10 text-center">Status</th>
+            <th class="w-10 text-center">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @if (batchEnrollmentList().length > 0) { @for( batchEnrollment of
+          batchEnrollmentList();track $index){
+          <tr>
+            <td>{{ $index + 1 }}</td>
+            <td class="text-start">{{ batchEnrollment.batchId }}</td>
+             <td class="text-start">{{ batchEnrollment.candidateId }}</td>
+              <td class="text-start">{{ batchEnrollment.enrollmentDate }}</td> 
+              @if(batchEnrollment.isActive){
+                <td><span class="isActive">Active</span></td>
+                }@else {
+                <td><span class="inactive">Inactive</span>
+                </td>
+                }
+                <td class="text-center">
+              <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#candidateModal">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-sm btn-danger">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+              
+          </tr>
+          } } @else {
+          <tr>
+            <td colspan="6" class="text-center">No record found</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--Modal Code -->
+
+<app-modalcomponent>
+  <div modal-title>{{ editMode() ? 'Edit Enrollment' : 'Add Enrollment' }}</div>
+  <div modal-body>
+    <form [formGroup]="batchEnrollmentForm">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <label for="Batch" class="form-label">Batch</label>
+
+          <select formControlName="batchId" class="form-select" id="Batch">
+            <option value="" disabled selected>Please select Batch</option>
+            @for(batch of batchList(); track $index){
+              <option value="{{ batch.batchId }}">{{ batch.batchName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-12 mt-3">
+          <label for="role" class="form-label">Candidate</label>
+
+          <select formControlName="candidateId" class="form-select" id="Batch">
+              <option value="" disabled selected>Please select candidate</option>
+             @for(candidate of candiateList(); track $index){
+              <option value="{{ candidate.candidateId }}">{{ candidate.fullName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-6 mt-3">
+          <label for="enrollmentDate" class="form-label">Enrollment Date</label>
+          <input
+            type="date"
+            formControlName="enrollmentDate"
+            class="form-control"
+            id="enrollmentDate"
+          />
+        </div>
+
+        <div class="col-md-12 mt-4">
+          <div class="form-check align-self-end mb-2">
+            <input
+              type="checkbox"
+              formControlName="isActive"
+              class="form-check-input"
+              id="isActive"
+            />
+            <label class="form-check-label" for="isActive">Is Active</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div modal-footer>
+    <button type="button" class="btn btn-secondary" (click)="onModalClose()">Close</button>
+    <button type="button" class="btn btn-primary ms-md-3 d-inline-block" (click)="onSaveEnrollment()">
+      {{ editMode() ? 'Update Enrollment' : 'Save Enrollment' }}
+    </button>
+  </div>
+</app-modalcomponent>
