@@ -4,6 +4,7 @@ import { Layout } from './components/layout/layout';
 import { Dashboard } from './components/dashboard/dashboard';
 import { Batch } from './components/batch/batch';
 import { authGuard } from './core/guards/auth-guard';
+import { Candidate } from './components/candidate/candidate';
 
 export const routes: Routes = [
     {
@@ -27,6 +28,11 @@ export const routes: Routes = [
             {
                 path:'batch',
                 component:Batch,
+                canActivate:[authGuard]
+            },
+            {
+                path:'candidate',
+                component:Candidate,
                 canActivate:[authGuard]
             },
         ]

@@ -3,7 +3,14 @@ export const GlobalConstants = {
 }
 
 export const ApiMethods = {
-    NEW_BATCH : 'Batches',
-    UPDATE_BATCH : 'Batches/',
-    ENROLMENT : ''
+    BATCHES:{
+        NEW_BATCH : 'Batches',
+        UPDATE_BATCH : 'Batches/',
+    },
+      CANDIDATES:{
+        GET_CANDIDATES: 'Candidates',
+        CREATE_CANDIDATE:'Candidates/'
+      }
+  
+    
 }

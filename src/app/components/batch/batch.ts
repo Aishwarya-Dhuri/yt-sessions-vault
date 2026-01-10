@@ -47,6 +47,8 @@ export class Batch implements OnInit {
   ngOnInit(): void {
     this.loadBatches();
   }
+
+  
   openAddBatch() {
     this.modalState.open();
     this.editMode.set(false);
@@ -164,7 +166,7 @@ export class Batch implements OnInit {
 
   }
   private formatDate(date: string) {
-    return date ? date.substring(0, 16) : '';
+    return date ? date.substring(0, 10) : '';
   }
 
   openDeleteConfirm(batchId: number) {

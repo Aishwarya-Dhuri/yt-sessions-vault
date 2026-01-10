@@ -13,21 +13,21 @@ export class BatchService {
   http = inject(HttpClient)
 
   createNewBatch(batchobj:BatchModel):Observable<IAPIResponse>{
-   return this.http.post<IAPIResponse>(environment.API_URL+ApiMethods.NEW_BATCH,batchobj)
+   return this.http.post<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.NEW_BATCH,batchobj)
   }
 
   getAllBatches():Observable<IAPIResponse>{
-    return this.http.get<IAPIResponse>(environment.API_URL+ApiMethods.NEW_BATCH)
+    return this.http.get<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.NEW_BATCH)
   }
   
 
   updateBatch(batchId: number, batchObj: BatchModel):Observable<IAPIResponse>{
     //console.warn(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId);
-    return this.http.put<IAPIResponse>(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId,batchObj)
+    return this.http.put<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.UPDATE_BATCH+batchId,batchObj)
     
   }
 
    deleteBatch(batchId: number):Observable<IAPIResponse>{
-    return this.http.delete<IAPIResponse>(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId)
+    return this.http.delete<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.UPDATE_BATCH+batchId)
   }
 }

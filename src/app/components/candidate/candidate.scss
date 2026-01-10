@@ -1,0 +1,18 @@
+@use '../../scss/variables' as *;
+.isActive , .inactive{
+    padding:5px;
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 6px 10px;
+    border-radius: 7px;
+    font-size: 11px;
+    color: $white;
+    font-weight: 600;
+
+}
+.isActive{
+    background-color: $active-btn-color;
+}
+.inactive{
+    background-color: $inactive-btn-color;
+}
