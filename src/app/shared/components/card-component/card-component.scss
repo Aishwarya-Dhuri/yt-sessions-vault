@@ -1,0 +1,55 @@
+.common-card {
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  background: #ffffff;
+  transition: all 0.25s ease;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    border-color: #dee2e6;
+  }
+
+  .card-header-area {
+    padding-bottom: 6px;
+    // border-bottom: 1px dashed #e9ecef;
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #212529;
+
+      small {
+        font-weight: 400;
+        color: #6c757d;
+      }
+    }
+  }
+
+  .card-content {
+    padding-top: 8px;
+    font-size: 0.875rem;
+    color: #495057;
+    line-height: 1.4;
+  }
+
+  .card-footer-area {
+    padding-top: 12px;
+    border-top: 1px solid #f1f3f5;
+
+    .card-meta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6f42c1;
+    }
+
+    .card-actions {
+      button {
+        border-radius: 10px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

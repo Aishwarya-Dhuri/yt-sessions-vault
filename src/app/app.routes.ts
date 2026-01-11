@@ -6,6 +6,7 @@ import { Batch } from './components/batch/batch';
 import { authGuard } from './core/guards/auth-guard';
 import { Candidate } from './components/candidate/candidate';
 import { BatchEnrollments } from './components/batch-enrollments/batch-enrollments';
+import { BatchSessions } from './components/batch-sessions/batch-sessions';
 
 export const routes: Routes = [
     {
@@ -36,9 +37,14 @@ export const routes: Routes = [
                 component:Candidate,
                 canActivate:[authGuard]
             },
-             {
+            {
                 path:'batch-enrollments',
                 component:BatchEnrollments,
+                canActivate:[authGuard]
+            },
+             {
+                path:'batch-sessions',
+                component:BatchSessions,
                 canActivate:[authGuard]
             },
         ]

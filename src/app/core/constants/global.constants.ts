@@ -16,6 +16,9 @@ export const ApiMethods = {
         CREATE_BATCH_ENROLLMENTS:'BatchEnrollments/'
      
     },
+    BATCH_SESSIONS:{
+        GET_ALL_SESSION_RECORDINGDS :'BatchSessions/GetAllSessionsRecordings',
+    }
   
     
 }
