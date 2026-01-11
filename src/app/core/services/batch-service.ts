@@ -3,31 +3,46 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { ApiMethods } from '../constants/global.constants';
 import { BatchModel } from '../models/batch.model';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay, tap } from 'rxjs';
 import { IAPIResponse } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BatchService {
-  http = inject(HttpClient)
+  http = inject(HttpClient);
+  private batchesCache$?: Observable<IAPIResponse>;
 
-  createNewBatch(batchobj:BatchModel):Observable<IAPIResponse>{
-   return this.http.post<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.NEW_BATCH,batchobj)
+
+
+  createNewBatch(batchobj: BatchModel): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(environment.API_URL + ApiMethods.BATCHES.NEW_BATCH, batchobj)
+      .pipe(tap(() => (this.batchesCache$ = undefined)));
   }
 
-  getAllBatches():Observable<IAPIResponse>{
-    return this.http.get<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.NEW_BATCH)
+  getAllBatches(): Observable<IAPIResponse> {
+    if (!this.batchesCache$) {
+      this.batchesCache$ = this.http
+        .get<IAPIResponse>(
+          environment.API_URL + ApiMethods.BATCHES.NEW_BATCH
+        )
+        .pipe(shareReplay(1));
+    }
+    return this.batchesCache$;
   }
-  
 
-  updateBatch(batchId: number, batchObj: BatchModel):Observable<IAPIResponse>{
+
+  updateBatch(batchId: number, batchObj: BatchModel): Observable<IAPIResponse> {
     //console.warn(environment.API_URL+ApiMethods.UPDATE_BATCH+batchId);
-    return this.http.put<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.UPDATE_BATCH+batchId,batchObj)
-    
+    return this.http.put<IAPIResponse>(environment.API_URL + ApiMethods.BATCHES.UPDATE_BATCH + batchId, batchObj)
+      .pipe(tap(() => (this.batchesCache$ = undefined)));
+
   }
 
-   deleteBatch(batchId: number):Observable<IAPIResponse>{
-    return this.http.delete<IAPIResponse>(environment.API_URL+ApiMethods.BATCHES.UPDATE_BATCH+batchId)
+  deleteBatch(batchId: number): Observable<IAPIResponse> {
+    return this.http.delete<IAPIResponse>(environment.API_URL + ApiMethods.BATCHES.UPDATE_BATCH + batchId)
+      .pipe(tap(() => (this.batchesCache$ = undefined)));
   }
+
+
 }

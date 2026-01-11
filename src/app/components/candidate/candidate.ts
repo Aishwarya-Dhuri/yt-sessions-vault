@@ -63,10 +63,10 @@ export class Candidate implements OnInit {
     this.editMode.set(false);
     this.selectedCandidateId.set(0);
 
-    // this.batchForm.reset({
-    //   batchId: 0,
-    //   isActive: true
-    // });
+    this.candidateForm.reset({
+        candidateId: 0,
+        isActive: true
+  });
   }
 
   afterSave() {
@@ -82,7 +82,7 @@ export class Candidate implements OnInit {
 
   onModalClose() {
     this.candidateForm.reset({
-      batchId: 0,
+      candidateId: 0,
       isActive: true
     });
     this.editMode.set(false);
@@ -99,7 +99,13 @@ export class Candidate implements OnInit {
         .subscribe({
           next: (res: IAPIResponse) => {
 
-            this.updateCandidateinList(res.data ?? formValue);
+            const updatedCandidate = res.data ?? {
+            ...formValue,
+            candidateId: this.selectedCandidateId()
+          };
+
+
+            this.updateCandidateinList(updatedCandidate);
             this.toastr.success('Candidate Updated successfully');
             this.afterSave();
 
@@ -116,8 +122,9 @@ export class Candidate implements OnInit {
 
             this.toastr.success('Candidate Created successfully');
             //this.editMode.set(false);
-            this.afterSave();
+          
             this.candiateList.update(list => [...list, res.data]);
+              this.afterSave();
 
           },
           error: (err) => {
