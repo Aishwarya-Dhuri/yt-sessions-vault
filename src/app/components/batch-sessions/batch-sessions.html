@@ -1,7 +1,7 @@
 <div class="container mt-4 mb-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="master-heading">Batch Sessions</h2>
-    <button class="btn btn-primary">Add Session</button>
+    <button class="btn btn-primary" (click)="openAddSessionModal()">Add Session</button>
   </div>
 
   <div class="row">
@@ -10,22 +10,26 @@
       <app-card-component>
         <div card-title>
           {{ session.topicName }}
-          <span class="d-block session-time-date mt-2">
-            <small class="me-2"><i class="fa-solid fa-calendar"></i> {{ session.sessionDate | date : 'mediumDate' }} </small> 
-            <small><i class="fa-solid fa-clock "></i> {{ session.durationInMinutes }} mins</small> 
-          </span>
+          <span class="d-block batch-name mt-2"> Batch : {{ session.batchName }} </span>
         </div>
 
-        <div card-footer>Batch :  {{ session.batchName }}</div>
+        <div card-footer>
+          <span class="d-block session-time-date mt-2">
+            <small class="me-2"><i class="fa-solid fa-calendar"></i> {{ session.sessionDate | date : 'mediumDate' }}
+            </small>
+            <small><i class="fa-solid fa-clock"></i> {{ session.durationInMinutes }} mins</small>
+          </span>
+        </div>
+        <div card-footer></div>
 
         <div card-actions>
-          <button class="btn btn-outline-primary btn-sm me-2">
+          <!-- <button class="btn btn-outline-primary btn-sm me-2">
             <i class="fa-solid fa-eye"></i>
-          </button>
-          <button class="btn btn-outline-warning btn-sm me-2">
+          </button> -->
+          <button class="btn btn-outline-warning btn-sm me-2" (click)="onEditRecording(session)">
             <i class="fas fa-edit"></i>
           </button>
-          <button class="btn btn-outline-danger btn-sm">
+          <button class="btn btn-outline-danger btn-sm" (click)="openDeleteConfirm(session.sessionId)">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
@@ -39,3 +43,79 @@
     }
   </div>
 </div>
+
+<!--Modal Code -->
+
+<app-modalcomponent>
+  <div modal-title>{{ editMode() ? 'Edit Session' : 'Add Session' }}</div>
+  <div modal-body>
+    <form [formGroup]="sessionForm">
+      <div class="row">
+        <div class="col-md-12 ">
+          <label for="Batch" class="form-label">Batch Name</label>
+
+          <select formControlName="batchId" class="form-select" id="Batch">
+            <option value="0" disabled selected>Please select Batch</option>
+            @for(batch of batchList(); track $index){
+            <option value="{{ batch.batchId }}">{{ batch.batchName }}</option>
+            }
+          </select>
+        </div>
+
+
+        <div class="col-md-12   mt-3">
+          <label for="topicName" class="form-label">Topic Name</label>
+          <input type="text" formControlName="topicName" class="form-control" id="topicName"
+            placeholder="Enter topic name" />
+        </div>
+
+        <!-- <div class="col-md-12  mt-3">
+          <label for="topicDescription" class="form-label">Topic Description</label>
+          <textarea class="form-control" formControlName="topicDescription" id="topicDescription" rows="3"
+            placeholder="Enter topic description"></textarea>
+        </div> -->
+
+        <div class="col-md-12   mt-3">
+          <label for="youtubeVideoId" class="form-label">Youtube Video URL</label>
+          <input type="text" formControlName="youtubeVideoId" class="form-control" id="youtubeVideoId"
+            placeholder="Enter Youtube Video URL" />
+        </div>
+
+        <div class="col-md-6   mt-3">
+          <label for="durationInMinutes" class="form-label">Duration in Minutes</label>
+          <input type="number" formControlName="durationInMinutes" class="form-control" id="durationInMinutes"
+            placeholder="Enter Duration in Minutes" />
+        </div>
+
+        <div class="col-md-6 mt-3">
+          <label for="sessionDate" class="form-label">Session Date </label>
+          <input type="date" formControlName="sessionDate" class="form-control" id="sessionDate" />
+        </div>
+
+        <div class="col-md-6  mt-3 ">
+          <label for="displayOrder" class="form-label">Display Order</label>
+          <input type="number" formControlName="displayOrder" class="form-control" id="displayOrder"
+            placeholder="Enter Display Order" />
+        </div>
+
+         <!-- <div class="col-md-6 mt-3">
+          <label for="createdAt" class="form-label">Created At </label>
+          <input type="date" formControlName="createdAt" class="form-control" id="createdAt" />
+        </div>
+
+         <div class="col-md-6 mt-3">
+          <label for="updatedAt" class="form-label">Updated Date </label>
+          <input type="date" formControlName="updatedAt" class="form-control" id="updatedAt" />
+        </div> -->
+
+      </div>
+    </form>
+  </div>
+
+  <div modal-footer>
+    <button type="button" class="btn btn-secondary" (click)="onModalClose()">Close</button>
+    <button type="button" class="btn btn-primary ms-md-3 d-inline-block" (click)="onSaveSessionRecording()">
+      {{ editMode() ? 'Update Session' : 'Save Session' }}
+    </button>
+  </div>
+</app-modalcomponent>

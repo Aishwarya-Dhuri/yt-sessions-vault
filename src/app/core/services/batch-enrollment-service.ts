@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, shareReplay, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { ApiMethods } from '../constants/global.constants';
+import { APIMethods } from '../constants/global.constants';
 import { IAPIResponse } from '../models/common.model';
 import { BatchEnrollmentModel } from '../models/batch-enrollment.model';
 
@@ -20,7 +20,7 @@ export class BatchEnrollmentService {
       this.enrollmentsCache$ = this.http
         .get<IAPIResponse>(
           environment.API_URL +
-            ApiMethods.BATCH_ENROLLMENTS.GET_ALL_ENROLLMENTS
+            APIMethods.BATCH_ENROLLMENTS.GET_ALL_ENROLLMENTS
         )
         .pipe(shareReplay(1));
     }
@@ -31,19 +31,19 @@ export class BatchEnrollmentService {
 
 
   createNewBatchEnrollment(batchEnrollMentObj: BatchEnrollmentModel): Observable<IAPIResponse> {
-    return this.http.post<IAPIResponse>(environment.API_URL + ApiMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS, batchEnrollMentObj)
+    return this.http.post<IAPIResponse>(environment.API_URL + APIMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS, batchEnrollMentObj)
     .pipe(tap(() => (this.enrollmentsCache$ = undefined)));
   }
 
   updateBatchEnrollment(enrollmentId: number, batchEnrollMentObj: BatchEnrollmentModel): Observable<IAPIResponse> {
  
-    return this.http.put<IAPIResponse>(environment.API_URL + ApiMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS + enrollmentId, batchEnrollMentObj)
+    return this.http.put<IAPIResponse>(environment.API_URL + APIMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS + enrollmentId, batchEnrollMentObj)
     .pipe(tap(() => (this.enrollmentsCache$ = undefined)));
 
   }
 
   deleteBatchEnrollment(enrollmentId: number): Observable<IAPIResponse> {
-    return this.http.delete<IAPIResponse>(environment.API_URL + ApiMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS + enrollmentId)
+    return this.http.delete<IAPIResponse>(environment.API_URL + APIMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS + enrollmentId)
      .pipe(tap(() => (this.enrollmentsCache$ = undefined)));
   }
 }

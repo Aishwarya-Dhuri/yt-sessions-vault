@@ -4,7 +4,7 @@ import { CandidateModel } from '../models/candiate.model';
 import { IAPIResponse } from '../models/common.model';
 import { Observable, shareReplay, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { ApiMethods } from '../constants/global.constants';
+import { APIMethods } from '../constants/global.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class CandidateService {
 
 
   createNewCandidate(candidateObj: CandidateModel): Observable<IAPIResponse> {
-    return this.http.post<IAPIResponse>(environment.API_URL + ApiMethods.CANDIDATES.CREATE_CANDIDATE, candidateObj)
+    return this.http.post<IAPIResponse>(environment.API_URL + APIMethods.CANDIDATES.CREATE_CANDIDATE, candidateObj)
       .pipe(tap(() => (this.candidatesCache$ = undefined)));
   }
 
@@ -25,7 +25,7 @@ export class CandidateService {
     if (!this.candidatesCache$) {
       this.candidatesCache$ = this.http
         .get<IAPIResponse>(
-          environment.API_URL + ApiMethods.CANDIDATES.GET_CANDIDATES
+          environment.API_URL + APIMethods.CANDIDATES.GET_CANDIDATES
         )
         .pipe(shareReplay(1));
     }
@@ -36,12 +36,12 @@ export class CandidateService {
 
 
   updateCandidate(candidateId: number, candidateObj: CandidateModel): Observable<IAPIResponse> {
-    return this.http.put<IAPIResponse>(environment.API_URL + ApiMethods.CANDIDATES.CREATE_CANDIDATE + candidateId, candidateObj)
+    return this.http.put<IAPIResponse>(environment.API_URL + APIMethods.CANDIDATES.CREATE_CANDIDATE + candidateId, candidateObj)
       .pipe(tap(() => (this.candidatesCache$ = undefined)));
   }
 
   deleteCandidate(candidateId: number): Observable<IAPIResponse> {
-    return this.http.delete<IAPIResponse>(environment.API_URL + ApiMethods.CANDIDATES.CREATE_CANDIDATE + candidateId)
+    return this.http.delete<IAPIResponse>(environment.API_URL + APIMethods.CANDIDATES.CREATE_CANDIDATE + candidateId)
       .pipe(tap(() => (this.candidatesCache$ = undefined)));
   }
 }

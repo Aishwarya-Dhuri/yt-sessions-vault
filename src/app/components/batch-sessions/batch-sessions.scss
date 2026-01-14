@@ -1,6 +1,17 @@
-.session-time-date{
-    color: grey;
-    font-weight: 400;
-        font-size: 13px;
-
+@use '../../scss/variables' as *;
+.session-time-date {
+  color: grey;
+  font-weight: 400;
+  font-size: 13px;
 }
+.batch-name {
+  color:$primary-base-color;
+  font-weight: 500;
+  font-size: 13px;
+}
+@media (min-width: 576px) {
+.modal-dialog{
+  max-width: 800px;
+}
+}
+

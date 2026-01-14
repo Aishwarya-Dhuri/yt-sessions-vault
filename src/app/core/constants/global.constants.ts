@@ -2,7 +2,7 @@ export const GlobalConstants = {
     LOGIN_LOCAL_KEY :"loggedInUserId"
 }
 
-export const ApiMethods = {
+export const APIMethods = {
     BATCHES:{
         NEW_BATCH : 'Batches',
         UPDATE_BATCH : 'Batches/',
@@ -18,6 +18,7 @@ export const ApiMethods = {
     },
     BATCH_SESSIONS:{
         GET_ALL_SESSION_RECORDINGDS :'BatchSessions/GetAllSessionsRecordings',
+        CREATE_BATCH_SESSION:'BatchSessions/'
     }
   
     

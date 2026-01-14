@@ -5,7 +5,10 @@ export class BatchSessionModel {
     topicName: string;
     sessionDate: string;
     batchName: string;
-    
+    topicDescription:string;
+    youtubeVideoId:string;
+    createdAt:string;
+    updatedAt:string;
 
     constructor() {
         this.sessionId = 0;
@@ -14,6 +17,10 @@ export class BatchSessionModel {
         this.topicName = '';
         this.sessionDate = '';
         this.batchName = '';
+        this.topicDescription = '';
+        this.youtubeVideoId = '';
+        this.createdAt = '';
+        this.updatedAt = '';
 
     }
 }
