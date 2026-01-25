@@ -1,12 +1,14 @@
 import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Layout } from './components/layout/layout';
-import { Dashboard } from './components/dashboard/dashboard';
 import { Batch } from './components/batch/batch';
 import { authGuard } from './core/guards/auth-guard';
 import { Candidate } from './components/candidate/candidate';
 import { BatchEnrollments } from './components/batch-enrollments/batch-enrollments';
 import { BatchSessions } from './components/batch-sessions/batch-sessions';
+import { AdminDashboard } from './components/admin-dashboard/admin-dashboard';
+import { CandidateDashboard } from './components/candidate-dashboard/candidate-dashboard';
+import { CandidateSessionRecordings } from './components/candidate-session-recordings/candidate-session-recordings';
 
 export const routes: Routes = [
     {
@@ -23,8 +25,13 @@ export const routes: Routes = [
         component:Layout,
         children:[
              {
-                path:'dashboard',
-                component:Dashboard,
+                path:'admin-dashboard',
+                component:AdminDashboard,
+                canActivate:[authGuard]
+            },
+             {
+                path:'candidate-dashboard',
+                component:CandidateDashboard,
                 canActivate:[authGuard]
             },
             {
@@ -45,6 +52,11 @@ export const routes: Routes = [
              {
                 path:'batch-sessions',
                 component:BatchSessions,
+                canActivate:[authGuard]
+            },
+            {
+                path:'candidate-recordings',
+                component:CandidateSessionRecordings,
                 canActivate:[authGuard]
             },
         ]

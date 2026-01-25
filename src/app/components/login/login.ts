@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginModel } from '../../core/models/login.model';
 import { GlobalConstants } from '../../core/constants/global.constants';
+import { ToastrService } from 'ngx-toastr';
+import { Roles } from '../../core/enums/roles.enum';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +18,13 @@ export class Login {
     email: '',
     password: ''
   };
-    showPassword = signal(false);
+  showPassword = signal(false);
 
   router = inject(Router);
   http = inject(HttpClient);
+
+  constructor(private toastr: ToastrService) {
+  }
 
 
   onLogin() {
@@ -27,10 +32,21 @@ export class Login {
     this.http.post('https://feestracking.freeprojectapi.com/api/BatchUser/login', this.loginObj).subscribe({
       next: (res: any) => {
         localStorage.setItem(GlobalConstants.LOGIN_LOCAL_KEY, JSON.stringify(res.data));
-        this.router.navigateByUrl('home/dashboard');
 
-      }, error(err) {
-        alert(err.error.message);
+        const userRole = res.data.role?.trim();
+        console.log('User role from API:', userRole);
+        console.log('SUPER_ADMIN_ROLE constant:', Roles.SUPER_ADMIN_ROLE);
+        
+        const routePath = userRole === Roles.SUPER_ADMIN_ROLE ? 'home/admin-dashboard' : 'home/candidate-dashboard';
+        console.log('Navigating to:', routePath);
+        
+        this.router.navigateByUrl(routePath);
+        this.toastr.success('Login  success');
+
+      }, error: (err) => {
+        this.toastr.error(
+          err.error?.message
+        );
       }
 
     });

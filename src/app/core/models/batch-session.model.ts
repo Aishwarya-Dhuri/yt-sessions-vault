@@ -4,14 +4,16 @@ export class BatchSessionModel {
     displayOrder: number;
     topicName: string;
     sessionDate: string;
+    batchId: number;
     batchName: string;
-    topicDescription:string;
-    youtubeVideoId:string;
-    createdAt:string;
-    updatedAt:string;
+    topicDescription: string;
+    youtubeVideoId: string;
+    createdAt: string;
+    updatedAt: string;
 
     constructor() {
         this.sessionId = 0;
+        this.batchId = 0;
         this.durationInMinutes = 0;
         this.displayOrder = 0;
         this.topicName = '';

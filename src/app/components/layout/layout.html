@@ -3,21 +3,35 @@
   <aside class="sidebar" [class.open]="sidebarOpen()">
     <nav>
       <ul>
-        <li>
-          <a routerLink="/home/dashboard" routerLinkActive="active">Dashboard</a>
-        </li>
-        <li>
-          <a routerLink="/home/batch" routerLinkActive="active">Batch</a>
-        </li>
-        <li>
-          <a routerLink="/home/candidate" routerLinkActive="active">Candidate</a>
-        </li>
-        <li>
-          <a routerLink="/home/batch-enrollments" routerLinkActive="active">Batch Enrollments</a>
-        </li>
-        <li>
-          <a routerLink="/home/batch-sessions" routerLinkActive="active">Batch Sessions</a>
-        </li>
+        @if (loggedInUserData(); as user) {
+          @if (user.role === rolesEnum.SUPER_ADMIN_ROLE) {
+            <li>
+              <a routerLink="/home/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
+            </li>
+            <li>
+              <a routerLink="/home/batch" routerLinkActive="active">Batches</a>
+            </li>
+            <li>
+              <a routerLink="/home/candidate" routerLinkActive="active">Candidates</a>
+            </li>
+            <li>
+              <a routerLink="/home/batch-enrollments" routerLinkActive="active">Batch Enrollments</a>
+            </li>
+            <li>
+              <a routerLink="/home/batch-sessions" routerLinkActive="active">Batch Admin Sessions</a>
+            </li>
+          } @else {
+            <li>
+              <a routerLink="/home/candidate-dashboard" routerLinkActive="active">Candidate Dashboard</a>
+            </li>
+            <li>
+              <a routerLink="/home/candidate-recordings" routerLinkActive="active">Candidate Recordings</a>
+            </li>
+          }
+        }
+        <li style="color:red">
+  ROLE: {{ loggedInUserData()?.role }}
+</li>
       </ul>
     </nav>
   </aside>

@@ -145,13 +145,24 @@ export class BatchSessions implements OnInit {
 
 
   updateRecoridingInList(updatedSession: BatchSessionModel) {
-    this.sessionRecordingsList.update(list =>
-      list.map(session =>
-        session.sessionId === updatedSession.sessionId
-          ? updatedSession
-          : session
-      )
-    );
+   const batches = this.batchList();
+
+  const matchedBatch = batches.find(
+    b => b.batchId === Number(updatedSession.batchId)
+  );
+
+  const sessionWithBatchName: BatchSessionModel = {
+    ...updatedSession,
+    batchName: matchedBatch?.batchName ?? ''
+  };
+
+   this.sessionRecordingsList.update(list =>
+    list.map(session =>
+      session.sessionId === sessionWithBatchName.sessionId
+        ? sessionWithBatchName
+        : session
+    )
+  );
   }
 
   onEditRecording(recording: BatchSessionModel) {
@@ -161,21 +172,25 @@ export class BatchSessions implements OnInit {
     const matchedBatch = batches.find(
       b => b.batchName === recording.batchName
     );
-console.log('Recording:', recording);
+    console.log('Recording:', recording);
 
     this.sessionForm.patchValue({
-     sessionId: recording.sessionId,
-    batchId: matchedBatch?.batchId ?? '',
-    topicName: recording.topicName,
-    youtubeVideoId: recording.youtubeVideoId, // ✅ explicit
-    durationInMinutes: recording.durationInMinutes,
-    sessionDate: recording.sessionDate,
-    displayOrder: recording.displayOrder,
+      sessionId: recording.sessionId,
+      batchId: matchedBatch?.batchId,
+      topicName: recording.topicName,
+      youtubeVideoId: recording.youtubeVideoId, // ✅ explicit
+      durationInMinutes: recording.durationInMinutes,
+      sessionDate: this.formatDate(recording.sessionDate),
+      displayOrder: recording.displayOrder,
     });
 
     this.editMode.set(true);
     this.modalState.open();
 
+  }
+
+   private formatDate(date: string) {
+    return date ? date.substring(0, 10) : '';
   }
 
 
