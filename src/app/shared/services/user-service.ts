@@ -20,7 +20,7 @@ export class UserService {
     this.loadUserFromStorage();
   }
 
-  private loadUserFromStorage(): void {
+   loadUserFromStorage(): void {
     const localData = localStorage.getItem(GlobalConstants.LOGIN_LOCAL_KEY);
     if (localData) {
       try {

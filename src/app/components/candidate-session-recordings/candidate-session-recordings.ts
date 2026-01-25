@@ -1,8 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
-import { CandidateModel } from '../../core/models/candiate.model';
-import { GlobalConstants } from '../../core/constants/global.constants';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { BatchEnrollmentService } from '../../core/services/batch-enrollment-service';
 import { BatchEnrollmentModel } from '../../core/models/batch-enrollment.model';
+import { UserService } from '../../shared/services/user-service';
 
 @Component({
   selector: 'app-candidate-session-recordings',
@@ -10,33 +9,13 @@ import { BatchEnrollmentModel } from '../../core/models/batch-enrollment.model';
   templateUrl: './candidate-session-recordings.html',
   styleUrl: './candidate-session-recordings.scss',
 })
-export class CandidateSessionRecordings {
-  loggedInUserData = signal<CandidateModel | null>(null);
+export class CandidateSessionRecordings implements OnInit {
   private enrollmentService = inject(BatchEnrollmentService);
-
+  userService = inject(UserService);
   batchEnrollmentList = signal<BatchEnrollmentModel[]>([]);
 
-  constructor() {
-    this.loadUserData();
-  }
-
   ngOnInit() {
-   this.getBatchesByCandidateID(this.loggedInUserData()?.candidateId || 0);
-  }
-
-  private loadUserData() {
-    const localData = localStorage.getItem(GlobalConstants.LOGIN_LOCAL_KEY);
-    console.log(localData)
-    if (localData != null) {
-      try {
-        this.loggedInUserData.set(JSON.parse(localData));
-        console.log(JSON.parse(localData).role);
-        
-      } catch (error) {
-        console.error('Failed to parse user data from localStorage:', error);
-        this.loggedInUserData.set(null);
-      }
-    }
+    this.getBatchesByCandidateID(this.userService.loggedInUserData().candidateId);
   }
 
 
