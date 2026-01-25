@@ -3,6 +3,9 @@ export const GlobalConstants = {
 }
 
 export const APIMethods = {
+    LOGIN:{
+        AUTHENTICATE : 'BatchUser/login'
+    },
     BATCHES:{
         NEW_BATCH : 'Batches',
         UPDATE_BATCH : 'Batches/',
@@ -13,8 +16,8 @@ export const APIMethods = {
     },
      BATCH_ENROLLMENTS:{
         GET_ALL_ENROLLMENTS : 'BatchEnrollments/GetAllEnrollment',
-        CREATE_BATCH_ENROLLMENTS:'BatchEnrollments/'
-     
+        CREATE_BATCH_ENROLLMENTS:'BatchEnrollments/',
+        GET_ENROLLED_BATCHES_BY_CANDIDATE_ID: 'BatchEnrollments/by-candidate/',
     },
     BATCH_SESSIONS:{
         GET_ALL_SESSION_RECORDINGDS :'BatchSessions/GetAllSessionsRecordings',

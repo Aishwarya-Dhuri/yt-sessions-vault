@@ -46,4 +46,9 @@ export class BatchEnrollmentService {
     return this.http.delete<IAPIResponse>(environment.API_URL + APIMethods.BATCH_ENROLLMENTS.CREATE_BATCH_ENROLLMENTS + enrollmentId)
      .pipe(tap(() => (this.enrollmentsCache$ = undefined)));
   }
+
+
+  getEnrolledBatchesByCandidateId(candidateId: number): Observable<IAPIResponse> {
+    return this.http.get<IAPIResponse>(environment.API_URL + APIMethods.BATCH_ENROLLMENTS.GET_ENROLLED_BATCHES_BY_CANDIDATE_ID + candidateId);
+  }
 }

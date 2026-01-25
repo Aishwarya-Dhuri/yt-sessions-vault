@@ -3,7 +3,7 @@
   <aside class="sidebar" [class.open]="sidebarOpen()">
     <nav>
       <ul>
-        @if (loggedInUserData(); as user) {
+        @if (userSrv.loggedInUserData(); as user) {
           @if (user.role === rolesEnum.SUPER_ADMIN_ROLE) {
             <li>
               <a routerLink="/home/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
@@ -29,9 +29,9 @@
             </li>
           }
         }
-        <li style="color:red">
-  ROLE: {{ loggedInUserData()?.role }}
-</li>
+         <li style="color:red">
+            Role: {{ userSrv.loggedInUserData().role }}
+          </li> 
       </ul>
     </nav>
   </aside>
