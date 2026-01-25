@@ -1,11 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { BatchEnrollmentService } from '../../core/services/batch-enrollment-service';
 import { BatchEnrollmentModel } from '../../core/models/batch-enrollment.model';
 import { UserService } from '../../shared/services/user-service';
 
 @Component({
   selector: 'app-candidate-session-recordings',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './candidate-session-recordings.html',
   styleUrl: './candidate-session-recordings.scss',
 })
@@ -15,7 +16,12 @@ export class CandidateSessionRecordings implements OnInit {
   batchEnrollmentList = signal<BatchEnrollmentModel[]>([]);
 
   ngOnInit() {
-    this.getBatchesByCandidateID(this.userService.loggedInUserData().candidateId);
+    // Subscribe to user data changes to get candidateId
+    this.userService.loggedInUserData$.subscribe(userData => {
+      if (userData?.candidateId) {
+        this.getBatchesByCandidateID(userData.candidateId);
+      }
+    });
   }
 
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CandidateModel } from '../../core/models/candiate.model';
 import { APIMethods, GlobalConstants } from '../../core/constants/global.constants';
 import { Roles } from '../../core/enums/roles.enum';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IAPIResponse } from '../../core/models/common.model';
 import { environment } from '../../../environments/environment.development';
@@ -14,13 +14,14 @@ import { environment } from '../../../environments/environment.development';
 export class UserService {
 
   loggedInUserData = signal<CandidateModel>(new CandidateModel());
+  loggedInUserData$:BehaviorSubject<CandidateModel> = new BehaviorSubject<CandidateModel>(this.loggedInUserData());
   private http = inject(HttpClient);
   
   constructor() {
     this.loadUserFromStorage();
   }
 
-   loadUserFromStorage(): void {
+  loadUserFromStorage(): void {
     const localData = localStorage.getItem(GlobalConstants.LOGIN_LOCAL_KEY);
     if (localData) {
       try {
@@ -28,6 +29,7 @@ export class UserService {
         // Normalize role by trimming whitespace
         userData.role = userData.role?.trim() || '';
         this.loggedInUserData.set(userData);
+        this.loggedInUserData$.next(userData);
       } catch (error) {
         console.error('Failed to parse user data from localStorage:', error);
       }
@@ -38,11 +40,14 @@ export class UserService {
     // Normalize role by trimming whitespace
     userData.role = userData.role?.trim() || '';
     this.loggedInUserData.set(userData);
+    this.loggedInUserData$.next(userData);
     localStorage.setItem(GlobalConstants.LOGIN_LOCAL_KEY, JSON.stringify(userData));
   }
 
   clearUser(): void {
-    this.loggedInUserData.set(new CandidateModel());
+    const emptyUser = new CandidateModel();
+    this.loggedInUserData.set(emptyUser);
+    this.loggedInUserData$.next(emptyUser);
     localStorage.removeItem(GlobalConstants.LOGIN_LOCAL_KEY);
   }
 

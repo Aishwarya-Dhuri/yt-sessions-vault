@@ -3,8 +3,8 @@
   <aside class="sidebar" [class.open]="sidebarOpen()">
     <nav>
       <ul>
-        @if (userSrv.loggedInUserData(); as user) {
-          @if (user.role === rolesEnum.SUPER_ADMIN_ROLE) {
+        <ng-container *ngIf="userSrv.loggedInUserData$  | async as userData">
+           @if (userData.role === rolesEnum.SUPER_ADMIN_ROLE) {
             <li>
               <a routerLink="/home/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
             </li>
@@ -28,10 +28,14 @@
               <a routerLink="/home/candidate-recordings" routerLinkActive="active">Candidate Recordings</a>
             </li>
           }
-        }
-         <li style="color:red">
+
+        </ng-container>
+        
+         
+   
+         <span style="color:red">
             Role: {{ userSrv.loggedInUserData().role }}
-          </li> 
+          </span>
       </ul>
     </nav>
   </aside>

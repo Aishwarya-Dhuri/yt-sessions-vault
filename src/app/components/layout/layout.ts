@@ -5,10 +5,11 @@ import { Roles } from '../../core/enums/roles.enum';
 import { GlobalConstants } from '../../core/constants/global.constants';
 import { CandidateModel } from '../../core/models/candiate.model';
 import { UserService } from '../../shared/services/user-service';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, Header],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Header,AsyncPipe,NgIf],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
 })

@@ -2,10 +2,11 @@ import { Component, inject, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalConstants } from '../../core/constants/global.constants';
 import { UserService } from '../../shared/services/user-service';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [NgIf,AsyncPipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -14,7 +15,7 @@ export class Header {
   toggleSidebar = output<void>();
   private router = inject(Router);
 
-  private userServ = inject(UserService);
+   userServ = inject(UserService);
   loggedInUserData: any;
   username = 'John Doe'; // Placeholder, should be from service
 

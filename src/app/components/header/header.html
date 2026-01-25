@@ -4,7 +4,12 @@
     <h1 class="brandlogo">Youtube Sessions Vault</h1>
   </div>
   <div class="right">
-    <span class="username"><img src="assets/images/user.png" class="user-icon"/>{{ loggedInUserData?.fullName }}</span>
+
+     <ng-container *ngIf="userServ.loggedInUserData$  | async as userData">
+      <span class="username"><img src="assets/images/user.png" class="user-icon"/>{{ userData?.fullName }}</span>
+
+     </ng-container>
+  
     <button class="logoff-btn" (click)="logoff()"> Logout <img src="assets/images/logout.png" class="logout-icon"/></button>
   </div>
 </header>
